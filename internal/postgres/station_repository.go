@@ -54,7 +54,9 @@ func (r *StationRepository) List(ctx context.Context) ([]*domain.Station, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() {
+		_ = rows.Close()
+	}()
 
 	var stations []*domain.Station
 
